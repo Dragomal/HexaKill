@@ -11,12 +11,8 @@ public class BackGroundTrigger : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
             Debug.Log("hitBackground");
-            _backgroundManager.InstantiateBackgrounds(transform);
-        }
-    }
-    void OnTriggerExit2D(Collider2D other){
-        if(other.CompareTag("OptiZone")){
-            _backgroundManager.ExitBackground(this.gameObject);
+            _backgroundManager.MoveBackgrounds(transform);
+            _backgroundManager.ExitZoneTest(transform);
         }
     }
 }

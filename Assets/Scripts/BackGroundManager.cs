@@ -1,25 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BackGroundManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _backGrounds = new List<GameObject>();
+    [SerializeField] private List<GameObject> _waitList = new List<GameObject>();
     [SerializeField] private GameObject _backgroundPrefab;
     [SerializeField] private Transform _backgroundParent;
-    private float backgroundsScale;
+    private float _backgroundsScale;
     void Start(){
         _backgroundParent = transform;
-        backgroundsScale = _backgroundPrefab.transform.localScale.x;
-        InstantiateBackgrounds(transform);
+        _backgroundsScale = _backgroundPrefab.transform.localScale.x;
+        MoveBackgrounds(transform);
     }
-    public void InstantiateBackgrounds(Transform originTransform){
+    public void MoveBackgrounds(Transform originTransform){
         Vector2 originPosition = new Vector2(originTransform.position.x, originTransform.position.y);
-        for (float y = originPosition.y + backgroundsScale; y >= originPosition.y - backgroundsScale - 1; y -= backgroundsScale){
-            for (float x = originPosition.x - backgroundsScale; x <= originPosition.x + backgroundsScale + 1; x += backgroundsScale){
-                if(CheckBackgrounds(new Vector2(x, y)))
-                _backGrounds.Add(Instantiate(_backgroundPrefab, new Vector2(x, y), Quaternion.identity, _backgroundParent));
-
+        for (float y = originPosition.y + _backgroundsScale; y >= originPosition.y - _backgroundsScale - 1; y -= _backgroundsScale){
+            for (float x = originPosition.x - _backgroundsScale; x <= originPosition.x + _backgroundsScale + 1; x += _backgroundsScale){
+                
+                if(CheckBackgrounds(new Vector2(x, y)) && _waitList.Count != 0){
+                    _waitList[0].transform.position = new Vector2(x, y);
+                    _waitList[0].SetActive(true);
+                    _backGrounds.Add(_waitList[0]);
+                    _waitList.Remove(_waitList[0]);
+                }
+                else if(CheckBackgrounds(new Vector2(x, y)) && _waitList.Count == 0)
+                    _backGrounds.Add(Instantiate(_backgroundPrefab, new Vector2(x, y), Quaternion.identity, _backgroundParent));
+                
             }
         }
     }
@@ -31,8 +40,18 @@ public class BackGroundManager : MonoBehaviour
         }
         return true;
     }
-    public void ExitBackground(GameObject backgroundGameobject){
-        _backGrounds.Remove(backgroundGameobject);
-        backgroundGameobject.SetActive(false);
+    public void ExitZoneTest(Transform newZoneTransform){
+        List<GameObject> itemsToRemove = new List<GameObject>();
+        foreach (GameObject item in _backGrounds){
+            float distance = Vector3.Distance(newZoneTransform.position, item.transform.position);
+            if(distance >= _backgroundsScale * 2){
+                itemsToRemove.Add(item);
+            }
+        }
+        foreach (GameObject item in itemsToRemove){
+            _waitList.Add(item);
+            _backGrounds.Remove(item);
+            item.SetActive(false);
+        }
     }
 }
