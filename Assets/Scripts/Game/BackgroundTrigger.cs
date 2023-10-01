@@ -10,7 +10,6 @@ public class BackGroundTrigger : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
-            Debug.Log("hitBackground");
             _backgroundManager.MoveBackgrounds(transform);
             _backgroundManager.ExitZoneTest(transform);
         }
