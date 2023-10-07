@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class SliderManager : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private PlayerLife _player;
+    [SerializeField] private PlayerStats _playerStats;
     void Start(){
-        _slider.value = _player._maxHealth;
+        _slider.value = _playerStats._maxHealth;
     }
     public void UpdateHealth(int healthValue){
         _slider.value = healthValue;

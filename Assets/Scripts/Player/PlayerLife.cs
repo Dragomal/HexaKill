@@ -9,7 +9,8 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private SliderManager _slider;
     private bool _isInvincible;
     private int _health = 100;
-    public int _maxHealth = 100;
+    private int _maxHealth;
+    private float _invincibleTime;
     public int _LifePoints{
         get {return _health;}
         set {
@@ -27,6 +28,12 @@ public class PlayerLife : MonoBehaviour
             else _slider.UpdateHealth(value * -1);
         }
     }
+    void Start(){
+        PlayerStats _playerStats = GetComponent<PlayerStats>();
+        _maxHealth = _playerStats._maxHealth;
+        _invincibleTime =  _playerStats._invincibleTime;
+        _LifePoints = _maxHealth;
+    }
     public void Hurt(int hurtDamages){
         if(_isInvincible) return;
         _LifePoints -= hurtDamages;
@@ -40,7 +47,7 @@ public class PlayerLife : MonoBehaviour
     }
     IEnumerator InvincibilityTime(){
         _isInvincible = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(_invincibleTime);
         _isInvincible = false;
     }
 }

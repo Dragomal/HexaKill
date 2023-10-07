@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
-    [SerializeField, Range(1,10)]private float _timeEnemySpawn;
+    [SerializeField, Range(1,10)] private float _timeEnemySpawn;
     [SerializeField] private List<GameObject> _enemiesList = new List<GameObject>();
     [SerializeField] public GameObject _player;
     [SerializeField] private BoxCollider2D _interBoxSpawn, _outerBoxSpawn;

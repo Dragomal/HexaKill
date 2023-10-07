@@ -5,13 +5,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovements : MonoBehaviour
 {
-    [SerializeField, Range(1, 50)] private float _movementSpeed = 10;
+    private float _movementSpeed;
     private Rigidbody2D _playerRb2D;
     private InputAction _onMoveAction;
     private Vector2 _moveAction;
 
     void Start(){
         _playerRb2D = GetComponent<Rigidbody2D>();
+        PlayerStats _playerStats = GetComponent<PlayerStats>();
+        _movementSpeed = _playerStats._movementSpeed;
         PlayerInput _playerInput = GetComponent<PlayerInput>();
         _onMoveAction = _playerInput.actions.FindAction("Move");
     }
