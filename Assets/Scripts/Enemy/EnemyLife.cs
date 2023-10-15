@@ -17,6 +17,8 @@ public class EnemyLife : MonoBehaviour
         }
     }
     void Death(){
-        Destroy(this.gameObject);
+        EnemiesManager enemiesManager = GetComponentInParent<EnemiesManager>();
+        enemiesManager.EnemyDeath(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 }

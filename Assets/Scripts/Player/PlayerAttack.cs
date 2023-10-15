@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
         PlayerStats _playerStats = GetComponent<PlayerStats>();
         _attackSpeed = _playerStats._attackSpeed;
         _timerToShoot = _attackSpeed;
+
+        
     }
     void FixedUpdate(){
         _timerToShoot -= Time.fixedDeltaTime;

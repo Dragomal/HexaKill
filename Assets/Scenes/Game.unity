@@ -203,7 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b37ae6d7359e2f44aaeb15303bc3597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAttack: {fileID: 1821464424}
 --- !u!1 &155240003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1231,14 @@ PrefabInstance:
       propertyPath: _enemiesList.Array.data[0]
       value: 
       objectReference: {fileID: 8373604657501504216, guid: 025be3c46d99fb443ac9d657f9c932ca, type: 3}
+    - target: {fileID: -5670213606296332417, guid: f20b1c13ce3289e43bd24523191ee0e0, type: 3}
+      propertyPath: _enemiesTypeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5670213606296332417, guid: f20b1c13ce3289e43bd24523191ee0e0, type: 3}
+      propertyPath: _enemiesTypeList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8373604657501504216, guid: 025be3c46d99fb443ac9d657f9c932ca, type: 3}
     - target: {fileID: 7151876314806229181, guid: f20b1c13ce3289e43bd24523191ee0e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1487,6 +1494,7 @@ MonoBehaviour:
   _attackSpeed: 0.43
   _movementSpeed: 10
   _invincibleTime: 0.5
+  _rangeAttack: 6.6
 --- !u!1 &2083867307
 GameObject:
   m_ObjectHideFlags: 0
